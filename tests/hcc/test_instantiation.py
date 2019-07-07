@@ -2,11 +2,11 @@ import pytest
 
 from hccpy.hcc import HCCEngine
 
-AVAILABLE_VERSIONS = ['22', '23']
+VERSIONS_IN_TEST = ['22', '23']
 
 def test_valid_version():
-    # GIVEN multiple `version` strings: `AVAILABLE_VERSIONS`
-    for version in AVAILABLE_VERSIONS:
+    # GIVEN multiple `version` strings: `VERSIONS_IN_TEST`
+    for version in VERSIONS_IN_TEST:
         # WHEN instantiate `HCCEngine` with `version`
         he = HCCEngine(version)
         # THEN version of `he` must be `version`
@@ -19,11 +19,6 @@ def test_invalid_version():
     # THEN a `KeyError` will be raised
     with pytest.raises(KeyError):
         he = HCCEngine(version)
-
-@pytest.fixture(scope='module', params=AVAILABLE_VERSIONS,
-                ids=['engine_v{}'.format(v) for v in AVAILABLE_VERSIONS])
-def he(request):
-    return HCCEngine(request.param)
 
 def test_engine_attributes(he):
     # GIVEN an `HCCEngine` instance `he`
